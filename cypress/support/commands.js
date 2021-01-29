@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+export let secondBook = "";
+
 Cypress.Commands.add('searchForBook', (bookName) => {
     
     // Find serach-field 
@@ -61,13 +63,12 @@ Cypress.Commands.add('checkForABook', (bookName) => {
 
 Cypress.Commands.add('rememberSecondBookExistOnThePage', () => {
     
-    let secondBook;
 
     cy.get(('[data-component-type=s-search-result]'))
       .eq(1)
       .invoke('text')
       .then( text => {
-          secondBook = text
+        secondBook = text
       })
       
 })
