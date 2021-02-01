@@ -26,11 +26,20 @@
 
 import { variables } from './variables'
 
+// Selectors
+const SEARCH_INPUT        = '#twotabsearchtextbox';
+const SEARCH_SUBMIT_BTN   = '#nav-search-submit-button';
+const FILTER_SECTION      = '#departments > ul';
+const FILTER_BOOK         = '> li:first a';
+const SEARCH_RESULT_ITEM  = '[data-component-type=s-search-result]';
+const SEARCH_RESULT_TITLE = ' h2 > a > span';
+
+
 Cypress.Commands.add('searchForBook', (bookName) => {
     
     // Find serach-field 
     // Type into search-field "Java"
-    cy.get('#twotabsearchtextbox')
+    cy.get(SEARCH_INPUT)
       .type(bookName)
 
 })
@@ -39,32 +48,42 @@ Cypress.Commands.add('clickSubmit', () => {
         
     // Find submit button for search field
     // Click on submit button
-    cy.get('#nav-search-submit-button')
+    cy.get(SEARCH_SUBMIT_BTN)
         .click()
 
 })
 
+Cypress.Commands.add('resultsAreLoaded', () => {
+
+  // Find all s-search-result eleemnt 
+  // Check the number of s-search-result item
+  // It should be > 1
+  cy.get('[data-component-type=s-search-result]')
+    .its('length')
+    .should('be.gte', 1)
+
+})
 Cypress.Commands.add('clickFilterByBook', () => {
 
     // Search for filter
     // Find book catagory
     // Click it 
-    cy.get('#departments > ul') 
-      .find('> li:first a')
+    cy.get(FILTER_SECTION) 
+      .find(FILTER_BOOK)
       .click()
 
 })
 
 Cypress.Commands.add('checkForABook', (bookName) => {
-    cy.get('[data-component-type=s-search-result]')
-      .find(' h2 > a > span')
+    cy.get(SEARCH_RESULT_ITEM)
+      .find(SEARCH_RESULT_TITLE)
       .should('contain.text', bookName)
 })
 
 Cypress.Commands.add('rememberSecondBookExistOnThePage', () => {
     
 
-    cy.get(('[data-component-type=s-search-result]'))
+    cy.get((SEARCH_RESULT_ITEM))
       .eq(1)
       .invoke('text')
       .then( text => {
