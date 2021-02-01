@@ -1,3 +1,3 @@
 export let variables = {
-    secondBook: "text"
-}
+    secondBook: ""
+};

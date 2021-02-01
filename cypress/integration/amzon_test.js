@@ -1,7 +1,7 @@
 // const assert = require('assert');
 // const { Given, When, Then } = require('@cucumber/cucumber');
 
-import { secondBook } from '../support/commands';
+import { variables } from '../support/variables'
 
 describe( "Amozon Search Test", () => {
 
@@ -34,6 +34,6 @@ describe( "Amozon Search Test", () => {
     cy.reload()
     
     // Check result page for secondItem variable
-    cy.checkForABook(secondBook)
+    cy.checkForABook(variables.secondBook)
   })
 })

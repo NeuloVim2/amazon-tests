@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-export let secondBook = "";
+import { variables } from './variables'
 
 Cypress.Commands.add('searchForBook', (bookName) => {
     
@@ -68,7 +68,7 @@ Cypress.Commands.add('rememberSecondBookExistOnThePage', () => {
       .eq(1)
       .invoke('text')
       .then( text => {
-        secondBook = text
+        variables.secondBook = text
       })
       
 })
